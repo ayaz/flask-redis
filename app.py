@@ -3,12 +3,12 @@ from flask_redis import FlaskRedis
 import requests
 import json
 import os
+import os.path
 from datetime import datetime
 
-REDIS_URL = os.environ['REDIS_URL']
 
 app = Flask(__name__)
-#app.config.from_object('settings')
+app.config['REDIS_URL'] = os.path.join(os.environ['REDIS_URL'], '0')
 redis_store = FlaskRedis(app)
 
 app.route('/root', methods=['GET'])
