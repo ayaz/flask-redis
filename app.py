@@ -11,16 +11,11 @@ app = Flask(__name__)
 app.config['REDIS_URL'] = os.path.join(os.environ['REDIS_URL'], '0')
 redis_store = FlaskRedis(app)
 
-app.route('/root', methods=['GET'])
-def index():
-    return 'Hi %s' % REDIS_URL
-
 @app.route('/hit', methods=['GET'])
 def get_faqs():
     """Return a list of FAQ titles and their links.
     """
-    query = request.args.get('query', None)
-    results = 'OK %s' % REDIS_URL
+    results = 'OK %s' % app.config['REDIS_URL']
     return results
 
 @app.route('/get_key', methods=['GET'])
@@ -37,7 +32,8 @@ def set_key():
         redis_store.set(query, value)
         results = 'OK'
     else:
-        return 'ERROR: query and value params missing'
+        results = 'ERROR: query and value params missing'
+    return results
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
