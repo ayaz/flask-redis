@@ -5,7 +5,7 @@ import json
 import os
 from datetime import datetime
 
-#REDIS_URL = os.environ['REDIS_URL']
+REDIS_URL = os.environ['REDIS_URL']
 
 app = Flask(__name__)
 #app.config.from_object('settings')
@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 app.route('/', methods=['GET'])
 def index():
-    return 'Hi'
+    return 'Hi %s' % REDIS_URL
 
 @app.route('/hit', methods=['GET'])
 def get_faqs():
