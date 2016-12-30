@@ -11,7 +11,7 @@ app = Flask(__name__)
 #app.config.from_object('settings')
 #redis_store = FlaskRedis(app)
 
-app.route('/', methods=['GET'])
+app.route('/root', methods=['GET'])
 def index():
     return 'Hi %s' % REDIS_URL
 
