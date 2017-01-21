@@ -11,10 +11,13 @@ app = Flask(__name__)
 try:
     app.config['REDIS_URL'] = os.path.join(os.environ['REDIS_URL'], '0')
 except:
-    app.config['REDIS_URL'] = 'redis://{}:{}/{}'.format(
-            os.environ['REDIS_PORT_6379_TCP_ADDR'],
-            int(os.environ.get('REDIS_PORT_6379_TCP_PORT', 6379)),
-            0)
+    try:
+        app.config['REDIS_URL'] = 'redis://{}:{}/{}'.format(
+                os.environ['REDIS_PORT_6379_TCP_ADDR'],
+                int(os.environ.get('REDIS_PORT_6379_TCP_PORT', 6379)),
+                0)
+    except:
+        app.config['REDIS_URL'] = 'redis://redis:{}/{}'.format(6379, 0)
 redis_store = FlaskRedis(app)
 
 @app.route('/hit', methods=['GET'])
