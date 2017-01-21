@@ -5,6 +5,7 @@ import json
 import os
 import os.path
 from datetime import datetime
+import platform
 
 
 app = Flask(__name__)
@@ -24,7 +25,7 @@ redis_store = FlaskRedis(app)
 def get_faqs():
     """Return a list of FAQ titles and their links.
     """
-    results = 'OK %s' % app.config['REDIS_URL']
+    results = 'OK from {} with {}'.format(platform.node(), app.config['REDIS_URL'])
     return results
 
 @app.route('/get_key', methods=['GET'])
